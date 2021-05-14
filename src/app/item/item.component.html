@@ -1,0 +1,95 @@
+<style>
+    .nav-link.active {
+        color: #007bff;
+    }
+
+    .nav-link {
+        color: white;
+    }
+</style>
+<div class="container border rounded border-primary p-0 my-5 ">
+    <nav ngbNav #nav="ngbNav" class="nav-tabs bg-primary pt-2 px-2">
+        <ng-container ngbNavItem>
+            <a ngbNavLink>Product Add</a>
+            <ng-template ngbNavContent>
+                <div class="p-3">
+                    <h1>Product details</h1>
+                    <form #addItem="ngForm" (ngSubmit)="addItemForm(addItem.value)" enctype="multipart/form-data" >
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-2 text-right">
+                                <label for="itemName" class="form-label">Item Name</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="text" ngModel id="itemName" name="itemName" placeholder="Item Name" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-2"></div>
+                            <div class="col-2 text-right">
+                                <label for="itemPrice" class="form-label">Item Price</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="number" ngModel min="1" id="itemPrice" name="itemPrice" placeholder="Item Price"
+                                    class="form-control" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-2 text-right">
+                                <label for="itemImage" class="form-label">Item Image</label>
+                            </div>
+                            <div class="col-8">
+                                <input type="file" (change)="fileUpload($event)" ngModel id="itemImage" name="itemImage[]" placeholder="Item Image" class="form-control p-1" />
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                                <button type="submit" class="btn btn-primary btn-block" name="btn" value="add">Save</button>
+                                <!-- <button type="button" (click)="upload()" class="btn btn-primary btn-block" name="btn" value="add">Save</button> -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+            <a ngbNavLink>Product List</a>
+            <ng-template ngbNavContent class="p-3">
+                <table class="table">
+                    <thead>
+                        <th>Item Name</th>
+                        <th>Item Price</th>
+                        <th>Image</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data.items">
+                            <td>
+                                {{ item.name }}
+                            </td>
+                            <td>
+                                {{ item.price }}
+                            </td>
+                            <td>
+                                <img src="{{ nodeUrl + item.image }}" height="75" alt="item image">
+                            </td>
+                            <td class="d-flex">
+                                <button class="btn btn-primary"
+                                    (click)="openVerticallyCentered(content)">Edit <i class="fas fa-edit"></i></button>
+                                <form action="{{ nodeUrl }}delete/{{ item._id }}" method="POST"><button type="submit"
+                                        class="btn btn-danger ml-2" onclick="this.form.submit();">Delete <i
+                                            class="fas fa-times"></i></button></form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ng-container>
+    </nav>
+    
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>
+
+<app-modal></app-modal>

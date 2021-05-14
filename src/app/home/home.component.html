@@ -1,0 +1,49 @@
+<div class="container my-5">
+    <div class="row mb-0 alert bg-primary text-light">Product list</div>
+    <div class="row p-0 border border-primary rounded p-3" style="overflow: scroll;height: 500px;">
+
+        <div *ngFor="let item of data.items" class="border border-success rounded p-1 m-2" style="width: fit-content;height: fit-content;">
+            <img src="{{ nodeUrl + item.image }}" width="180" height="180" alt="item image"><br>
+            <div class="text-wrap" style="width: 170;">
+                <b>{{item.name}}</b>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="d-flex justify-content-between">
+                <b class="mx-auto my-auto">${{item.price}}</b><button type="submit" name="item" (click)="addToCart(item._id)" class="btn btn-danger">Add to cart</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-0 alert bg-primary text-light">Your cart details</div>
+    <div class="row border border-primary rounded p-3">
+        <table class="table table-borderless">
+            <thead>
+                <th width="50%">Product detail</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cartItem of data.cart[0].items" class="border">
+
+                    <td class="d-flex">
+                        <img src="{{ nodeUrl + cartItem.image }}" width="75" height="75" alt="item image">
+                        <h5 class="mx-3">{{cartItem.name}}</h5>
+                    </td>
+                    <td class="font-weight-bold">${{cartItem.price}}</td>
+                    <td class="flex-column">
+                        <div class="col"><button class="btn p-0 m-0" (click)="addToCart(cartItem._id)"><i class="fas fa-plus"></i></button></div>
+                        <div class="col"><input type="text" value="{{cartItem.quantity}}" readonly></div>
+                        <div class="col"><button class="btn p-0 m-0" (click)="removeFromCart(cartItem._id)"><i class="fas fa-minus"></i></button></div>
+                    </td>
+                    <td class="font-weight-bold">${{cartItem.totalItemPrice}}</td>
+                    <td><button class="btn btn-danger" (click)="removeItemFromCart(cartItem._id)">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
