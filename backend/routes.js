@@ -4,7 +4,7 @@ const cartController = require('./controllers/cartController');
 module.exports = (app, multipartMiddleware='') => { const _ = '/api'
     
     app.get(_+'/items', itemController().index)
-    app.post(_ + '/item/add', itemController().add)
+    app.post(_ + '/item/add', multipartMiddleware, itemController().add)
     app.post(_+'/item/edit', itemController().edit)
     app.post(_+'/item/:item', itemController().itemDuplicate)
     app.post(_+'/delete/:item', itemController().delete)

@@ -17,7 +17,7 @@ export class ApiService {
   }
 
   addItem(item) {
-    return this.http.post(this.url + 'upload', item)
+    return this.http.post(this.url + 'item/add', item)
   }
   
   addToCart(itemId) {

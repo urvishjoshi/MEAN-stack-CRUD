@@ -10,7 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './item/modal/modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './item/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { ChatComponent } from './chat/chat.component';
     HeaderComponent,
     HomeComponent,
     ModalComponent,
-    ChatComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

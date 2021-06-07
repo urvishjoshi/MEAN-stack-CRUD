@@ -14,7 +14,7 @@
             <ng-template ngbNavContent>
                 <div class="p-3">
                     <h1>Product details</h1>
-                    <form #addItem="ngForm" (ngSubmit)="addItemForm(addItem.value)" enctype="multipart/form-data" >
+                    <form #addItem="ngForm" (ngSubmit)="addItemForm(addItem)" enctype="multipart/form-data" >
                         <div class="row">
                             <div class="col-2"></div>
                             <div class="col-2 text-right">
@@ -85,6 +85,12 @@
                         </tr>
                     </tbody>
                 </table>
+            </ng-template>
+        </ng-container>
+        <ng-container ngbNavItem>
+            <a ngbNavLink>Chat</a>
+            <ng-template ngbNavContent class="p-3">
+                <app-chat></app-chat>
             </ng-template>
         </ng-container>
     </nav>

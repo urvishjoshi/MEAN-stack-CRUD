@@ -31,26 +31,22 @@ function itemController() {
         
         add(req, res) {
             const { itemName, itemPrice } = req.body
-            console.log(req.body);
 
             let image = req.files.itemImage
 
-            let image_name = 'uploads/' + moment().format('YYYYMMDDHHmmss') + image.name
+            let image_name = 'uploads/' + image.path.replace('public'+'/'+'uploads'+'/', '')
 
             const newItem = {
                 name: itemName,
                 price: itemPrice,
                 image: image_name
             }
-
+            
             Item.create(newItem).then(() => {
-                image.mv('public/' + image_name, err => {
-                    if (err) return res.json({error: err})
-                    else return res.json({success: 'Save successful'})
-                })
+                return res.json({ success: 'Save successful' })
             }).catch(err => {
-                return res.json({ error: err })
-            });
+                return res.json({ msg: 'Save unsuccessful', err })
+            })
 
         },
 

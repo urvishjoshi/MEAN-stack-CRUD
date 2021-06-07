@@ -4,6 +4,7 @@ import { Item } from './item';
 import { Observable } from "rxjs";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
+import { ChatService } from './chat/chat.service';
 
 interface itemType{
   name: string,
@@ -21,7 +22,7 @@ export class ItemComponent implements OnInit {
   data = null
   nodeUrl = 'http://localhost:3000/';
 
-  constructor(private modalService: NgbModal, private api:ApiService) {
+  constructor(private modalService: NgbModal, private api: ApiService, private chat: ChatService) {
   }
   
   ngOnInit(): void {
@@ -38,23 +39,15 @@ export class ItemComponent implements OnInit {
     this.uploadedFiles = e.target.files
   }
 
-  addItemForm(item) {
-    // item.itemImage = this.file
-    console.log(item);
+  addItemForm(form) {
     let formData = new FormData();
     for(var i = 0; i < this.uploadedFiles.length; i++) {
         formData.append("itemImage", this.uploadedFiles[i], this.uploadedFiles[i].name);
     }
-    console.log(formData['itemImage']);
-    // let formData = new FormData();
-    // for (var i = 0; i < this.file.length; i++) {
-    //   formData.append("itemImage[]", this.file[i], this.file[i].name);
-    // }
-    // this.http.post('/api/upload', formData)
-    //   .subscribe((response) => {
-    //     console.log('response received is ', response);
-    //   })
-    // this.api.addItem(formData).subscribe(data => { console.log(data); })
+    formData.append('itemName', form.value.itemName)
+    formData.append('itemPrice', form.value.itemPrice)
+    this.api.addItem(formData).subscribe(data => { console.log(data); })
+    form.reset()
   }
 
   upload(){
